@@ -1,0 +1,56 @@
+#ESERCITAZIONE FANTACALCIO
+
+#Creo un funzione che sia in grado di leggere il mio file
+def leggi_file(file):
+
+    infile=open(file,'r')
+    lista_giocatori=[]
+
+    for line in infile:
+
+        lista_giocatori=line.rstrip()
+
+        info= lista_giocatori.split(',')
+
+        pulisci_stringhe(info)
+        info[3]= int(info[3])
+
+    lista_giocatori.append(info)
+
+    return lista_giocatori
+
+#Creo una funzione che mi crei delle liste per ogni ruolo
+def separa_dati_tabella(tabella):
+    portieri=[]
+    difensori=[]
+    centrocampisti=[]
+    attaccanti=[]
+    for calciatore in tabella:
+        ruolo=calciatore[2]
+
+        if ruolo=='portiere':
+            portieri.append(calciatore)
+        elif ruolo=='difensore':
+            difensori.append(calciatore)
+        elif ruolo=='centrocampista':
+            centrocampisti.append(calciatore)
+        elif ruolo=='attaccante':
+            attaccanti.append(calciatore)
+    ruoli=[portieri,difensori,centrocampisti,attaccanti]
+    return ruoli
+
+
+#Creo una funzione che tolga i caratteri di spazio dalle stringhe della lista
+def pulisci_stringhe(lista):
+
+    i=0                                                        #Contatore che mi permette di contare i campi nella lista
+    for campo in lista:
+        stringa_pulita=''
+
+        for carattere in campo:
+            if carattere!=' ':
+                stringa_pulita= stringa_pulita+carattere
+
+        lista[i]= stringa_pulita
+        i=i+1
+        return lista
