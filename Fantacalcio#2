@@ -1,0 +1,73 @@
+import operator
+
+def main():
+    nome_file='fantacalcio.txt'
+
+
+    lista_portieri=leggo_file(nome_file,'portiere',20)
+    print(lista_portieri)
+    lista_difensori=leggo_file(nome_file, 'difensore',40)
+    lista_centocampisti=leggo_file(nome_file,'centrocampista',80)
+    lista_attaccanti=leggo_file(nome_file,'attaccante',120)
+
+    portieri_comprati= compro(lista_portieri,20,3)
+    print('Portieri:',end='')
+
+    for portiere in portieri_comprati:
+        print(portiere['nome'],portiere['costo'], end=' ')
+    print()
+
+
+    difensori_comprati= compro(lista_difensori,40,8)
+    print('Difensori', end=' ')
+
+    for difensore in difensori_comprati:
+        print(difensore['nome'],difensore['costo'],end=' ')
+    print()
+
+
+    centrocampisti_comprati= compro(lista_centocampisti,80,8)
+    print('Centrocampisti', end=' ')
+
+    for centrocampista in centrocampisti_comprati:
+        print(centrocampista['nome'],centrocampista['costo'],end=' ')
+    print()
+
+
+    attaccanti_comprati= compro(lista_attaccanti,120,6)
+    print('Attaccanti:', end=' ')
+
+    for attaccanti in attaccanti_comprati:
+        print(attaccanti['nome'],attaccanti['costo'], end=' ')
+    print()
+
+def leggo_file(file,ruolo,budget):
+    with open(file,'r',encoding='utf-8')as line:
+        l=[]
+        for campo in line:
+            campo.split(sep=', ')
+            if campo[2]==ruolo and int (campo[3])>budget:
+                giocatore={
+                    'nome' : campo[0],
+                    'squadra': campo[1],
+                    'costo': campo[3]
+                }
+                l.append(giocatore)
+    l.sort(key=operator.itemgetter("costo"), reverse=True)
+    return l
+
+def compro (elenco, budget, qunati):
+
+    comprati=[]
+    i=0
+    completato=False
+    while not completato:
+        for elemento in elenco:
+            if elemento['costo']<=budget-elemento['costo']:
+                i+=1
+            if i== qunati:
+                completato=True
+    return comprati
+
+
+    main()
